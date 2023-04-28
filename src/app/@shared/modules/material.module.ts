@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+
+import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
@@ -10,6 +12,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonToggleModule,
     MatDividerModule,
     MatToolbarModule,
+  ],
+  providers: [
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
   ],
   exports: [
     MatButtonModule,
