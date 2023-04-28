@@ -10,6 +10,7 @@ import { SharedModule } from '@shared/shared.module';
 
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
+import { NavigationModule } from './navigation/navigation.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { HomeModule } from './home/home.module';
 
     AuthModule,
     HomeModule,
+    NavigationModule,
     AppRoutingModule,
   ],
   providers: [],
