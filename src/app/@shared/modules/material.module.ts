@@ -4,6 +4,9 @@ import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
@@ -11,6 +14,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatButtonToggleModule,
     MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
     MatToolbarModule,
   ],
   providers: [
@@ -20,6 +26,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatButtonToggleModule,
     MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
     MatToolbarModule,
   ],
 })
