@@ -1,0 +1,10 @@
+div.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-form-field {
+    display: flex;
+    width: 300px;
+  }
+}

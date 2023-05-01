@@ -1,1 +1,35 @@
 <p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="flex flex-column max-w-20rem">
+    <div class="flex flex-column">
+      <label>Display Name</label>
+      <input type="text" pInputText formControlName="displayName" />
+    </div>
+
+    <div class="flex flex-column">
+      <label>Email</label>
+      <input type="email" pInputText formControlName="email" />
+      <div *ngIf="emailControl.invalid && emailControl.dirty">
+        <div *ngIf="emailControl.errors?.['required']">Email is required</div>
+        <div *ngIf="emailControl.errors?.['email']">Enter a valid email</div>
+      </div>
+    </div>
+
+    <div class="flex flex-column">
+      <label>Password</label>
+      <p-password
+        inputStyleClass="w-full"
+        styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
+        formControlName="password"
+        [toggleMask]="true"
+      />
+      <div *ngIf="passwordControl.invalid && passwordControl.dirty">
+        <div *ngIf="passwordControl.errors?.['required']">
+          Password is required
+        </div>
+      </div>
+    </div>
+
+    <p-button type="submit">Create Account</p-button>
+  </div>
+</form>
