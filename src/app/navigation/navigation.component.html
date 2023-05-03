@@ -1,9 +1,11 @@
-<p-menubar>
+<p-menubar class="absolute w-full">
   <ng-template pTemplate="start">
     <span>My Application</span>
   </ng-template>
   <ng-template pTemplate="end">
-    <p-button>Login</p-button>
-    <p-button>Create Account</p-button>
+    <p-button [routerLink]="['/login']" styleClass="p-button-text">
+      Log in
+    </p-button>
+    <p-button [routerLink]="['/register']">Create account</p-button>
   </ng-template>
 </p-menubar>
