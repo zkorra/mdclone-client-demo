@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div
+  class="h-screen flex flex-column justify-content-center align-items-center"
+>
+  <h1>Log in</h1>
+
+  <form
+    class="flex flex-column w-20rem gap-3"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="flex flex-column">
+      <label>Email</label>
+      <input type="email" pInputText formControlName="email" />
+      <div *ngIf="emailControl.invalid && emailControl.dirty">
+        <div *ngIf="emailControl.errors?.['required']">Email is required</div>
+        <div *ngIf="emailControl.errors?.['email']">Enter a valid email</div>
+      </div>
+    </div>
+
+    <div class="flex flex-column">
+      <label>Password</label>
+      <p-password
+        inputStyleClass="w-full"
+        styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
+        formControlName="password"
+        [toggleMask]="true"
+      />
+      <div *ngIf="passwordControl.invalid && passwordControl.dirty">
+        <div *ngIf="passwordControl.errors?.['required']">
+          Password is required
+        </div>
+      </div>
+    </div>
+
+    <p-button type="submit" styleClass="w-full justify-content-center">
+      Sign in
+    </p-button>
+
+    <div class="flex flex-row align-items-center">
+      <a [routerLink]="['/login']">Forget your password?</a>
+    </div>
+  </form>
+</div>

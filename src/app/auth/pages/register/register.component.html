@@ -1,11 +1,13 @@
-<p>register works!</p>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div class="flex flex-column max-w-20rem">
-    <div class="flex flex-column">
-      <label>Display Name</label>
-      <input type="text" pInputText formControlName="displayName" />
-    </div>
+<div
+  class="h-screen flex flex-column justify-content-center align-items-center"
+>
+  <h1>Sign up</h1>
 
+  <form
+    class="flex flex-column w-20rem gap-3"
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+  >
     <div class="flex flex-column">
       <label>Email</label>
       <input type="email" pInputText formControlName="email" />
@@ -30,6 +32,13 @@
       </div>
     </div>
 
-    <p-button type="submit">Create Account</p-button>
-  </div>
-</form>
+    <p-button type="submit" styleClass="w-full justify-content-center">
+      Sign up
+    </p-button>
+
+    <div class="flex flex-row align-items-center gap-2">
+      <p>Already have an acount?</p>
+      <a [routerLink]="['/login']">Log in</a>
+    </div>
+  </form>
+</div>
