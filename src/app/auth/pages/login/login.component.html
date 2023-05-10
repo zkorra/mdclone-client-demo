@@ -32,8 +32,12 @@
       </div>
     </div>
 
-    <p-button type="submit" styleClass="w-full justify-content-center">
-      Sign in
+    <p-button
+      type="submit"
+      styleClass="w-full justify-content-center"
+      label="Sign in"
+      [loading]="submitted"
+    >
     </p-button>
 
     <div class="flex flex-row align-items-center">

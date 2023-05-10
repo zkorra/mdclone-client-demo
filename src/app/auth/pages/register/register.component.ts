@@ -32,14 +32,10 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // this.authService.getTodo();
-
-    console.log(this.registerForm.value);
-    this.authService.register(this.registerForm.value);
-
-
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value);
     }
+
+    this.submitted = false;
   }
 }

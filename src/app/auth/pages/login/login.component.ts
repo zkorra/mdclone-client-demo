@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  submitted: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -27,8 +29,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+
     if (this.loginForm.valid) {
-      // POST TO BACKEND
+      this.authService.login(this.loginForm.value);
     }
+
+    this.submitted = false;
   }
 }
