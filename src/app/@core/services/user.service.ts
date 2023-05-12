@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 import { User } from '@core/models';
+import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private userSubject: BehaviorSubject<User | null> =
     new BehaviorSubject<User | null>(null);
-  public userData = this.userSubject.asObservable();
+  public user$ = this.userSubject.asObservable();
 
-  constructor(private jwtToken: JwtService) {}
+  constructor(private apiService: ApiService, private jwtToken: JwtService) {}
 
   setUser(user: User): void {
     // Set user's token into localstorage
@@ -20,6 +21,19 @@ export class UserService {
   }
 
   getUser() {
-    return this.userSubject.value;
+    return this.userSubject.getValue();
+  }
+
+  register(registrationInfo: { email: string; password: string }) {
+    return this.apiService.post('/user/register', registrationInfo);
+  }
+
+  login(userInfo: { email: string; password: string }) {
+    return this.apiService.post('/user/login', userInfo).pipe(
+      map((data) => {
+        this.setUser(data);
+        return data;
+      }),
+    );
   }
 }
