@@ -1,11 +1,18 @@
-<p-menubar class="absolute w-full">
+<p-menubar class="absolute w-full justify-content-between">
   <ng-template pTemplate="start">
     <span>My Application</span>
   </ng-template>
-  <ng-template pTemplate="end">
-    <p-button [routerLink]="['/login']" styleClass="p-button-text">
-      Log in
-    </p-button>
-    <p-button [routerLink]="['/register']">Create account</p-button>
-  </ng-template>
+
+  <div>
+    <ng-template [ngIf]="user == null" [ngIfElse]="loggedInTemplate">
+      <p-button [routerLink]="['/login']" styleClass="p-button-text">
+        Log in
+      </p-button>
+      <p-button [routerLink]="['/register']">Create account</p-button>
+    </ng-template>
+
+    <ng-template #loggedInTemplate>
+      <p-button (onClick)="onLogout()">Logout</p-button>
+    </ng-template>
+  </div>
 </p-menubar>

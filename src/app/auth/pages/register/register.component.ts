@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AuthService } from '../../services';
+import { UserService } from '@core/services';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   submitted: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -33,7 +33,9 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
 
     if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value);
+      this.userService
+        .register(this.registerForm.value)
+        .subscribe((data) => {});
     }
 
     this.submitted = false;

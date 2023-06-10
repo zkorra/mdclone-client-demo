@@ -20,6 +20,11 @@ export class UserService {
     this.userSubject.next(user);
   }
 
+  purgeUser(): void {
+    this.jwtToken.removeToken();
+    this.userSubject.next(null);
+  }
+
   getUser() {
     return this.userSubject.getValue();
   }
