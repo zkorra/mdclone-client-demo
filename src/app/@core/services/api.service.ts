@@ -6,10 +6,10 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 
+import { environment } from 'src/environments/environment.development';
+
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  API_URL = 'http://localhost:8080';
-
   constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
@@ -25,19 +25,19 @@ export class ApiService {
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http
-      .get(`${this.API_URL}${path}`, { params })
+      .get(`${environment.apiUrl}${path}`, { params })
       .pipe(catchError(this.handleError));
   }
 
   post(path: string, body: Object = {}): Observable<any> {
     return this.http
-      .post(`${this.API_URL}${path}`, JSON.stringify(body))
+      .post(`${environment.apiUrl}${path}`, JSON.stringify(body))
       .pipe(catchError(this.handleError));
   }
 
   put(path: string, body: Object = {}): Observable<any> {
     return this.http
-      .put(`${this.API_URL}${path}`, JSON.stringify(body))
+      .put(`${environment.apiUrl}${path}`, JSON.stringify(body))
       .pipe(catchError(this.handleError));
   }
 }
