@@ -9,6 +9,16 @@
     (ngSubmit)="onSubmit()"
   >
     <div class="flex flex-column">
+      <label>Username</label>
+      <input type="username" pInputText formControlName="username" />
+      <div *ngIf="usernameControl.invalid && usernameControl.dirty">
+        <div *ngIf="usernameControl.errors?.['required']">
+          Username is required
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-column">
       <label>Email</label>
       <input type="email" pInputText formControlName="email" />
       <div *ngIf="emailControl.invalid && emailControl.dirty">
