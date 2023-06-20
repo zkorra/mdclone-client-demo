@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.value).subscribe((data) => {});
+      this.userService
+        .login({ user: this.loginForm.value })
+        .subscribe((data) => {});
     }
 
     this.submitted = false;
