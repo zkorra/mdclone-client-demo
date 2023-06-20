@@ -30,11 +30,11 @@ export class UserService {
   }
 
   register(registrationInfo: RegistrationUserInfo) {
-    return this.apiService.post('/user', registrationInfo);
+    return this.apiService.post('/users', registrationInfo);
   }
 
   login(userInfo: LoginUserInfo) {
-    return this.apiService.post('/user/login', userInfo).pipe(
+    return this.apiService.post('/users/login', userInfo).pipe(
       map((data) => {
         this.setUser(data);
         return data;
