@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
 
     if (this.registerForm.valid) {
       this.userService
-        .register(this.registerForm.value)
+        .register({ user: this.registerForm.value })
         .subscribe((data) => {});
     }
 
