@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 
-import { User } from '@core/models';
+import { LoginUserInfo, RegistrationUserInfo, User } from '@core/models';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 
@@ -29,11 +29,11 @@ export class UserService {
     return this.userSubject.getValue();
   }
 
-  register(registrationInfo: { email: string; password: string }) {
-    return this.apiService.post('/user/register', registrationInfo);
+  register(registrationInfo: RegistrationUserInfo) {
+    return this.apiService.post('/user', registrationInfo);
   }
 
-  login(userInfo: { email: string; password: string }) {
+  login(userInfo: LoginUserInfo) {
     return this.apiService.post('/user/login', userInfo).pipe(
       map((data) => {
         this.setUser(data);
