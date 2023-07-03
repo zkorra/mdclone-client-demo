@@ -9,7 +9,7 @@ import { UserService } from '@core/services';
 })
 export class NavigationComponent implements OnInit {
   loggedIn: boolean = false;
-  user: User | null = null;
+  user!: User;
 
   constructor(private userService: UserService) {}
 
@@ -20,7 +20,6 @@ export class NavigationComponent implements OnInit {
   }
 
   onLogout() {
-    console.log('lol');
     this.userService.purgeUser();
   }
 }
