@@ -8,16 +8,11 @@ import { UserService } from '@core/services';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
-  loggedIn: boolean = false;
-  user!: User;
+  user$ = this.userService.getUser();
 
   constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
-    this.userService.user$.subscribe((data) => {
-      this.user = data;
-    });
-  }
+  ngOnInit() {}
 
   onLogout() {
     this.userService.purgeUser();
