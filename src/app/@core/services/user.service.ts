@@ -7,10 +7,7 @@ import { JwtService } from './jwt.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(
-    {} as User,
-  );
-  public user$ = this.userSubject.asObservable();
+  private user$ = new BehaviorSubject<User | null>(null);
 
   constructor(private apiService: ApiService, private jwtToken: JwtService) {}
 
@@ -18,16 +15,16 @@ export class UserService {
     // Set user's token into localstorage
     this.jwtToken.setToken(user.token);
 
-    this.userSubject.next(user);
+    this.user$.next(user);
   }
 
   purgeUser(): void {
     this.jwtToken.removeToken();
-    this.userSubject.next({} as User);
+    this.user$.next(null);
   }
 
-  getUser(): User {
-    return this.userSubject.getValue();
+  getUser(): Observable<User | null> {
+    return this.user$;
   }
 
   register(registrationInfo: RegistrationUserInfo): Observable<User> {
@@ -35,7 +32,9 @@ export class UserService {
   }
 
   login(userInfo: LoginUserInfo): Observable<User> {
-    return this.apiService.post('/users/login', userInfo).pipe(
+    const userInfoDto = { user: userInfo };
+
+    return this.apiService.post('/users/login', userInfoDto).pipe(
       map((data) => {
         const { user } = data;
         this.setUser(user);
