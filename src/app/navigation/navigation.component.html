@@ -4,15 +4,17 @@
   </ng-template>
 
   <div>
-    <ng-template [ngIf]="user == null" [ngIfElse]="loggedInTemplate">
+    <div *ngIf="user$ | async as user; else noAuth">
+      <p-button (onClick)="onLogout()">Logout</p-button>
+      <div>{{ user | json }}</div>
+    </div>
+
+    <ng-template #noAuth>
       <p-button [routerLink]="['/login']" styleClass="p-button-text">
         Log in
       </p-button>
       <p-button [routerLink]="['/register']">Create account</p-button>
-    </ng-template>
-
-    <ng-template #loggedInTemplate>
-      <p-button (onClick)="onLogout()">Logout</p-button>
+      <div>{{ user$ | async | json }}</div>
     </ng-template>
   </div>
 </p-menubar>
