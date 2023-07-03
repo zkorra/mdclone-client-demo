@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 import { LoginUserInfo, RegistrationUserInfo, User } from '@core/models';
 import { ApiService } from './api.service';
@@ -7,8 +7,9 @@ import { JwtService } from './jwt.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private userSubject: BehaviorSubject<User | null> =
-    new BehaviorSubject<User | null>(null);
+  private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(
+    {} as User,
+  );
   public user$ = this.userSubject.asObservable();
 
   constructor(private apiService: ApiService, private jwtToken: JwtService) {}
@@ -22,22 +23,23 @@ export class UserService {
 
   purgeUser(): void {
     this.jwtToken.removeToken();
-    this.userSubject.next(null);
+    this.userSubject.next({} as User);
   }
 
-  getUser() {
+  getUser(): User {
     return this.userSubject.getValue();
   }
 
-  register(registrationInfo: RegistrationUserInfo) {
+  register(registrationInfo: RegistrationUserInfo): Observable<User> {
     return this.apiService.post('/users', registrationInfo);
   }
 
-  login(userInfo: LoginUserInfo) {
+  login(userInfo: LoginUserInfo): Observable<User> {
     return this.apiService.post('/users/login', userInfo).pipe(
       map((data) => {
-        this.setUser(data);
-        return data;
+        const { user } = data;
+        this.setUser(user);
+        return user;
       }),
     );
   }
