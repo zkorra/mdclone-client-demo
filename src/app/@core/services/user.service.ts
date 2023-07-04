@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, take } from 'rxjs';
 
 import { LoginUserInfo, RegistrationUserInfo, User } from '@core/models';
 import { ApiService } from './api.service';
@@ -10,6 +10,10 @@ export class UserService {
   private user$ = new BehaviorSubject<User | null>(null);
 
   constructor(private apiService: ApiService, private jwtToken: JwtService) {}
+
+  getUser(): Observable<User | null> {
+    return this.user$;
+  }
 
   setUser(user: User): void {
     // Set user's token into localstorage
@@ -23,8 +27,18 @@ export class UserService {
     this.user$.next(null);
   }
 
-  getUser(): Observable<User | null> {
-    return this.user$;
+  populate() {
+    if (this.jwtToken.getToken()) {
+      this.apiService
+        .get('/user')
+        .pipe(take(1))
+        .subscribe({
+          next: (data) => this.setUser(data.user),
+          error: (error) => this.purgeUser(),
+        });
+    } else {
+      this.purgeUser();
+    }
   }
 
   register(registrationInfo: RegistrationUserInfo): Observable<User> {
@@ -35,6 +49,7 @@ export class UserService {
     const userInfoDto = { user: userInfo };
 
     return this.apiService.post('/users/login', userInfoDto).pipe(
+      take(1),
       map((data) => {
         const { user } = data;
         this.setUser(user);
