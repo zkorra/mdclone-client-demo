@@ -8,7 +8,7 @@ import { UserService } from '@core/services';
 export class AppComponent implements OnInit {
   constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.userService.populate();
   }
 }
