@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Router } from '@angular/router';
+
 import { UserService } from '@core/services';
 
 @Component({
@@ -11,7 +14,11 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   submitted: boolean = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -32,8 +39,11 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.value).subscribe((data) => {
-        console.log('form', data);
+      this.userService.login(this.loginForm.value).subscribe({
+        next: (data) => {
+          console.log('form', data);
+          this.router.navigateByUrl('/');
+        },
       });
     }
 
