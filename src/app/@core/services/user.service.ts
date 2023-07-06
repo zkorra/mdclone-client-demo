@@ -8,6 +8,7 @@ import { JwtService } from './jwt.service';
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private user$ = new BehaviorSubject<User | null>(null);
+  private authenticated$ = new BehaviorSubject<boolean>(false);
 
   constructor(private apiService: ApiService, private jwtToken: JwtService) {}
 
@@ -15,16 +16,23 @@ export class UserService {
     return this.user$;
   }
 
+  isAuthenticated(): Observable<boolean> {
+    return this.authenticated$;
+  }
+
   setUser(user: User): void {
     // Set user's token into localstorage
     this.jwtToken.setToken(user.token);
-
     this.user$.next(user);
+
+    this.authenticated$.next(true);
   }
 
   purgeUser(): void {
     this.jwtToken.removeToken();
     this.user$.next(null);
+
+    this.authenticated$.next(false);
   }
 
   populate() {
