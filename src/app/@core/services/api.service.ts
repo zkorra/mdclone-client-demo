@@ -12,32 +12,15 @@ import { environment } from 'src/environments/environment.development';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  private handleError(error: HttpErrorResponse) {
-    const { message } = error.error;
-
-    return throwError(
-      () =>
-        new Error(
-          message ? message : 'Something bad happened; please try again later.',
-        ),
-    );
-  }
-
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http
-      .get(`${environment.apiUrl}${path}`, { params })
-      .pipe(catchError(this.handleError));
+    return this.http.get(`${environment.apiUrl}${path}`, { params });
   }
 
   post(path: string, body: Object = {}): Observable<any> {
-    return this.http
-      .post(`${environment.apiUrl}${path}`, JSON.stringify(body))
-      .pipe(catchError(this.handleError));
+    return this.http.post(`${environment.apiUrl}${path}`, JSON.stringify(body));
   }
 
   put(path: string, body: Object = {}): Observable<any> {
-    return this.http
-      .put(`${environment.apiUrl}${path}`, JSON.stringify(body))
-      .pipe(catchError(this.handleError));
+    return this.http.put(`${environment.apiUrl}${path}`, JSON.stringify(body));
   }
 }
