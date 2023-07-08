@@ -8,9 +8,19 @@ export class GlobalErrorHandlerService implements ErrorHandler {
   constructor() {}
 
   handleError(error: Error | HttpErrorResponse) {
-    const { message } = error;
+    if (error instanceof HttpErrorResponse) {
+      /*
+       * server side error
+       */
+    } else {
+      /*
+       * client side error
+       */
+    }
 
-    console.error(message);
-    alert(message);
+    // const { message } = error;
+
+    // console.error(message);
+    // alert(message);
   }
 }
