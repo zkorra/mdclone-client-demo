@@ -10,20 +10,38 @@
   >
     <div class="flex flex-column">
       <label>Username</label>
-      <input type="username" pInputText formControlName="username" />
-      <div *ngIf="usernameControl.invalid && usernameControl.dirty">
-        <div *ngIf="usernameControl.errors?.['required']">
+      <input
+        type="text"
+        pInputText
+        formControlName="username"
+        [ngClass]="{
+          'ng-invalid ng-dirty': submitted && usernameControl.invalid
+        }"
+      />
+      <div *ngIf="submitted && usernameControl.invalid">
+        <small *ngIf="usernameControl.errors?.['required']">
           Username is required
-        </div>
+        </small>
       </div>
     </div>
 
     <div class="flex flex-column">
       <label>Email</label>
-      <input type="email" pInputText formControlName="email" />
-      <div *ngIf="emailControl.invalid && emailControl.dirty">
-        <div *ngIf="emailControl.errors?.['required']">Email is required</div>
-        <div *ngIf="emailControl.errors?.['email']">Enter a valid email</div>
+      <input
+        type="email"
+        pInputText
+        formControlName="email"
+        [ngClass]="{
+          'ng-invalid ng-dirty': submitted && emailControl.invalid
+        }"
+      />
+      <div *ngIf="submitted && emailControl.invalid">
+        <small *ngIf="emailControl.errors?.['required']"
+          >Email is required</small
+        >
+        <small *ngIf="emailControl.errors?.['email']"
+          >Enter a valid email</small
+        >
       </div>
     </div>
 
@@ -34,11 +52,15 @@
         styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
         formControlName="password"
         [toggleMask]="true"
+        [feedback]="false"
+        [ngClass]="{
+          'ng-invalid ng-dirty': submitted && passwordControl.invalid
+        }"
       />
-      <div *ngIf="passwordControl.invalid && passwordControl.dirty">
-        <div *ngIf="passwordControl.errors?.['required']">
+      <div *ngIf="submitted && passwordControl.invalid">
+        <small *ngIf="passwordControl.errors?.['required']">
           Password is required
-        </div>
+        </small>
       </div>
     </div>
 
@@ -46,7 +68,7 @@
       type="submit"
       styleClass="w-full justify-content-center"
       label="Sign up"
-      [loading]="submitted"
+      [loading]="loading"
     >
     </p-button>
 

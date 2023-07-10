@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from '@core/services';
+import { finalize, take } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,15 +12,19 @@ import { UserService } from '@core/services';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   submitted: boolean = false;
+  loading: boolean = false;
 
   constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit() {
-    this.registerForm = this.fb.group({
-      username: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
+    this.registerForm = this.fb.group(
+      {
+        username: ['abc', [Validators.required]],
+        email: ['abc@abc.com', [Validators.required, Validators.email]],
+        password: ['124412', [Validators.required, Validators.minLength(6)]],
+      },
+      { updateOn: 'submit' },
+    );
   }
 
   get usernameControl() {
@@ -36,13 +41,35 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.loading = true;
 
-    if (this.registerForm.valid) {
-      this.userService
-        .register({ user: this.registerForm.value })
-        .subscribe((data) => {});
+    if (this.registerForm.invalid) {
+      /*
+       *  Change updateOn from 'submit' to default
+       *  Allow form to validate on value change for second or more attempt
+       */
+      this.registerForm = this.changeFormGroupMode(this.registerForm);
+      this.loading = false;
+
+      return;
     }
 
-    this.submitted = false;
+    this.userService
+      .register({ user: this.registerForm.value })
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.loading = false;
+        }),
+      )
+      .subscribe({
+        next: (data) => {
+          console.log('next?');
+        },
+      });
+  }
+
+  changeFormGroupMode(form: FormGroup) {
+    return this.fb.group(form.controls, { updateOn: 'change' });
   }
 }
