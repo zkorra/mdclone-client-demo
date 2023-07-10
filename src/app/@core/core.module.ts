@@ -2,6 +2,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { MessageService } from 'primeng/api';
+
 import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 import { HttpTokenInterceptor, ServerErrorInterceptor } from './interceptors';
 
@@ -15,6 +17,7 @@ import { HttpTokenInterceptor, ServerErrorInterceptor } from './interceptors';
       useClass: ServerErrorInterceptor,
       multi: true,
     },
+    MessageService,
   ],
 })
 export class CoreModule {}
