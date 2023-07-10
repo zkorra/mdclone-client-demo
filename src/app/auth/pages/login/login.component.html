@@ -24,6 +24,7 @@
         styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
         formControlName="password"
         [toggleMask]="true"
+        [feedback]="false"
       />
       <div *ngIf="passwordControl.invalid && passwordControl.dirty">
         <div *ngIf="passwordControl.errors?.['required']">
