@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, take } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Observable, map, take } from 'rxjs';
 
 import {
   LoginUserInfo,
@@ -13,7 +13,7 @@ import { JwtService } from './jwt.service';
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private user$ = new BehaviorSubject<User | null>(null);
-  private authenticated$ = new BehaviorSubject<boolean>(false);
+  private authenticated$ = new ReplaySubject<boolean>(1);
 
   constructor(private apiService: ApiService, private jwtToken: JwtService) {}
 
