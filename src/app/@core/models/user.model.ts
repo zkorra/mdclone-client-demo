@@ -13,3 +13,13 @@ export interface RegistrationUserInfo {
 export interface LoginUserInfo {
   user: { email: string; password: string };
 }
+
+export interface UserInfoResponse {
+  user: {
+    email: string;
+    token: string;
+    username: string;
+    bio: string;
+    image: string;
+  };
+}
