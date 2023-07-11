@@ -9,6 +9,7 @@ import { UserService } from '@core/services';
 })
 export class NavigationComponent implements OnInit {
   user$ = this.userService.getUser();
+  authenticated$ = this.userService.isAuthenticated();
 
   constructor(private userService: UserService) {}
 
