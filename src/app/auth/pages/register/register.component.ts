@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { UserService } from '@core/services';
+import { UserService, NotificationService } from '@core/services';
 import { finalize, take } from 'rxjs';
 
 @Component({
@@ -14,14 +15,23 @@ export class RegisterComponent implements OnInit {
   submitted: boolean = false;
   loading: boolean = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    private notificationService: NotificationService,
+  ) {}
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  private buildForm() {
     this.registerForm = this.fb.group(
       {
-        username: ['abc', [Validators.required]],
-        email: ['abc@abc.com', [Validators.required, Validators.email]],
-        password: ['124412', [Validators.required, Validators.minLength(6)]],
+        username: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
       },
       { updateOn: 'submit' },
     );
@@ -31,12 +41,12 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls['username'];
   }
 
-  get passwordControl() {
-    return this.registerForm.controls['password'];
-  }
-
   get emailControl() {
     return this.registerForm.controls['email'];
+  }
+
+  get passwordControl() {
+    return this.registerForm.controls['password'];
   }
 
   onSubmit() {
@@ -48,14 +58,14 @@ export class RegisterComponent implements OnInit {
        *  Change updateOn from 'submit' to default
        *  Allow form to validate on value change for second or more attempt
        */
-      this.registerForm = this.changeFormGroupMode(this.registerForm);
+      this.registerForm = this.cloneFormGroup(this.registerForm);
       this.loading = false;
 
       return;
     }
 
     this.userService
-      .register({ user: this.registerForm.value })
+      .register(this.registerForm.value)
       .pipe(
         take(1),
         finalize(() => {
@@ -63,13 +73,14 @@ export class RegisterComponent implements OnInit {
         }),
       )
       .subscribe({
-        next: (data) => {
-          console.log('next?');
+        next: (user) => {
+          this.notificationService.displaySuccess('Register Successfully');
+          this.router.navigateByUrl('/login');
         },
       });
   }
 
-  changeFormGroupMode(form: FormGroup) {
+  cloneFormGroup(form: FormGroup) {
     return this.fb.group(form.controls, { updateOn: 'change' });
   }
 }

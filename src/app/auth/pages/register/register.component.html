@@ -1,80 +1,93 @@
 <div
   class="h-screen flex flex-column justify-content-center align-items-center"
 >
-  <h1>Sign up</h1>
-
-  <form
-    class="flex flex-column w-20rem gap-3"
-    [formGroup]="registerForm"
-    (ngSubmit)="onSubmit()"
-  >
-    <div class="flex flex-column">
-      <label>Username</label>
-      <input
-        type="text"
-        pInputText
-        formControlName="username"
-        [ngClass]="{
-          'ng-invalid ng-dirty': submitted && usernameControl.invalid
-        }"
-      />
-      <div *ngIf="submitted && usernameControl.invalid">
-        <small *ngIf="usernameControl.errors?.['required']">
-          Username is required
-        </small>
+  <div class="w-24rem">
+    <div class="flex flex-column mb-3">
+      <h1 class="m-0">Sign up</h1>
+      <div class="flex align-items-center gap-1">
+        <p>Already have an acount?</p>
+        <a [routerLink]="['/login']">Log in</a>
       </div>
     </div>
 
-    <div class="flex flex-column">
-      <label>Email</label>
-      <input
-        type="email"
-        pInputText
-        formControlName="email"
-        [ngClass]="{
-          'ng-invalid ng-dirty': submitted && emailControl.invalid
-        }"
-      />
-      <div *ngIf="submitted && emailControl.invalid">
-        <small *ngIf="emailControl.errors?.['required']"
-          >Email is required</small
-        >
-        <small *ngIf="emailControl.errors?.['email']"
-          >Enter a valid email</small
-        >
-      </div>
-    </div>
-
-    <div class="flex flex-column">
-      <label>Password</label>
-      <p-password
-        inputStyleClass="w-full"
-        styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
-        formControlName="password"
-        [toggleMask]="true"
-        [feedback]="false"
-        [ngClass]="{
-          'ng-invalid ng-dirty': submitted && passwordControl.invalid
-        }"
-      />
-      <div *ngIf="submitted && passwordControl.invalid">
-        <small *ngIf="passwordControl.errors?.['required']">
-          Password is required
-        </small>
-      </div>
-    </div>
-
-    <p-button
-      type="submit"
-      styleClass="w-full justify-content-center"
-      label="Sign up"
-      [loading]="loading"
+    <form
+      class="flex flex-column gap-3"
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
     >
-    </p-button>
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username">Username</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="username"
+          [ngClass]="{
+            'ng-invalid ng-dirty': submitted && usernameControl.invalid
+          }"
+          required
+        />
+        <div *ngIf="submitted && usernameControl.invalid">
+          <small *ngIf="usernameControl.errors?.['required']">
+            Username is required
+          </small>
+        </div>
+      </div>
 
-    <div class="flex flex-row align-items-center gap-2">
-      <p>Already have an acount?</p>
-      <a [routerLink]="['/login']">Log in</a>
-    </div>
-  </form>
+      <div class="flex flex-column gap-2">
+        <label htmlFor="email">Email Address</label>
+        <input
+          type="email"
+          pInputText
+          formControlName="email"
+          [ngClass]="{
+            'ng-invalid ng-dirty': submitted && emailControl.invalid
+          }"
+          required
+        />
+        <div *ngIf="submitted && emailControl.invalid">
+          <small *ngIf="emailControl.errors?.['required']">
+            Email is required
+          </small>
+          <small *ngIf="emailControl.errors?.['email']">
+            Enter a valid email
+          </small>
+        </div>
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label htmlFor="password">Password</label>
+        <p-password
+          inputStyleClass="w-full"
+          styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
+          formControlName="password"
+          [toggleMask]="true"
+          [feedback]="false"
+          [ngClass]="{
+            'ng-invalid ng-dirty': submitted && passwordControl.invalid
+          }"
+          required
+        />
+        <div *ngIf="submitted && passwordControl.invalid">
+          <small *ngIf="passwordControl.errors?.['required']">
+            Password is required
+          </small>
+        </div>
+      </div>
+
+      <p-button
+        type="submit"
+        styleClass="w-full justify-content-center"
+        [label]="loading ? 'Getting started' : 'Get started'"
+        [loading]="loading"
+      >
+      </p-button>
+
+      <div class="flex flex-column gap-1">
+        <label>By creating account you are agreeing to our</label>
+        <label>
+          <a [routerLink]="['/']">Terms and Conditions</a>
+        </label>
+      </div>
+    </form>
+  </div>
 </div>
