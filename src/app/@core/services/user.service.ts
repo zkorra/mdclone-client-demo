@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, take } from 'rxjs';
 
-import { LoginUserInfo, RegistrationUserInfo, User } from '@core/models';
+import {
+  LoginUserInfo,
+  RegistrationUserInfo,
+  User,
+  UserInfoResponse,
+} from '@core/models';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 
@@ -50,15 +55,16 @@ export class UserService {
   }
 
   register(registrationInfo: RegistrationUserInfo): Observable<User> {
-    return this.apiService.post('/users', registrationInfo);
+    const registrationInfoDto = { user: registrationInfo };
+
+    return this.apiService.post('/users', registrationInfoDto);
   }
 
   login(userInfo: LoginUserInfo): Observable<User> {
     const userInfoDto = { user: userInfo };
 
     return this.apiService.post('/users/login', userInfoDto).pipe(
-      take(1),
-      map((data) => {
+      map((data: UserInfoResponse) => {
         const { user } = data;
         this.setUser(user);
         return user;
