@@ -5,7 +5,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 
 import { GlobalErrorHandlerService } from './services';
-import { HttpTokenInterceptor, ServerErrorInterceptor } from './interceptors';
+import { HttpTokenInterceptor, HttpErrorInterceptor } from './interceptors';
 
 @NgModule({
   imports: [CommonModule],
@@ -14,7 +14,7 @@ import { HttpTokenInterceptor, ServerErrorInterceptor } from './interceptors';
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ServerErrorInterceptor,
+      useClass: HttpErrorInterceptor,
       multi: true,
     },
     MessageService,
