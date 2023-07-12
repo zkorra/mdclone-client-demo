@@ -57,13 +57,14 @@ export class UserService {
   register(registrationInfo: RegistrationUserInfo): Observable<User> {
     const registrationInfoDto = { user: registrationInfo };
 
-    return this.apiService.post('/users', registrationInfoDto);
+    return this.apiService.post('/users', registrationInfoDto).pipe(take(1));
   }
 
   login(userInfo: LoginUserInfo): Observable<User> {
     const userInfoDto = { user: userInfo };
 
     return this.apiService.post('/users/login', userInfoDto).pipe(
+      take(1),
       map((data: UserInfoResponse) => {
         const { user } = data;
         this.setUser(user);
