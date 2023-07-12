@@ -26,7 +26,7 @@ export class NotificationService {
       this.messageService.add({
         key: this.TOAST_KEY,
         severity: 'error',
-        summary: 'Error',
+        summary: 'Something went wrong',
         detail: message,
       });
     });
