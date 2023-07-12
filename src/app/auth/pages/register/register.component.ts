@@ -51,7 +51,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.loading = true;
 
     if (this.registerForm.invalid) {
       /*
@@ -59,10 +58,11 @@ export class RegisterComponent implements OnInit {
        *  Allow form to validate on value change for second or more attempt
        */
       this.registerForm = this.cloneFormGroup(this.registerForm);
-      this.loading = false;
 
       return;
     }
+
+    this.loading = true;
 
     this.userService
       .register(this.registerForm.value)
