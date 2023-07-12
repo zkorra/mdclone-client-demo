@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LoaderService, UserService } from '@core/services';
-import { take, takeUntil, Subject } from 'rxjs';
+import { takeUntil, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
