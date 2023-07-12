@@ -1,29 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { Router } from '@angular/router';
 
-import { UserService } from '@core/services';
-import { take, finalize } from 'rxjs';
+import { LoaderService, UserService } from '@core/services';
+import { take, takeUntil, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  private readonly destroyed$: Subject<void> = new Subject();
+
   loginForm!: FormGroup;
-  submitted: boolean = false;
-  loading: boolean = false;
+  submitted = false;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit() {
     this.buildForm();
+
+    this.loaderService
+      .isLoading()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((status) => {
+        this.loading = status;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   private buildForm() {
@@ -51,24 +65,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-
-    this.userService
-      .login(this.loginForm.value)
-      .pipe(
-        take(1),
-        finalize(() => {
-          this.loading = false;
-        }),
-      )
-      .subscribe({
-        next: (data) => {
-          console.log('form', data);
-          this.router.navigateByUrl('/');
-        },
-        // error: (error) => {
-        //   console.error('myerror', error);
-        // },
-      });
+    this.userService.login(this.loginForm.value).subscribe({
+      next: (data) => {
+        console.log('form', data);
+        this.router.navigateByUrl('/');
+      },
+      // error: (error) => {
+      //   console.error('myerror', error);
+      // },
+    });
   }
 }
