@@ -13,3 +13,7 @@ body {
 a {
   color: var(--primary-color);
 }
+
+small.ng-invalid {
+  color: var(--red-500);
+}
