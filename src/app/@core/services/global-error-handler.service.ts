@@ -13,16 +13,25 @@ export class GlobalErrorHandlerService implements ErrorHandler {
       /*
        * server side error
        */
-      const { errors } = error.error;
-      const type = Object.keys(errors)[0];
-      const description = Object.values(errors)[0];
-
-      const message = `${type} ${description}.`;
-      this.notificationService.displayError(message);
+      this.handleServerError(error);
     } else {
       /*
        * client side error
        */
+      this.handleClientError(error);
     }
+  }
+
+  private handleServerError(error: HttpErrorResponse) {
+    const { errors } = error.error;
+    const type = Object.keys(errors)[0];
+    const description = Object.values(errors)[0];
+
+    const message = `${type} ${description}.`;
+    this.notificationService.displayError(message);
+  }
+
+  private handleClientError(error: Error) {
+    console.error(error);
   }
 }
