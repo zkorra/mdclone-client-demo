@@ -2,8 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { UserService, NotificationService } from '@core/services';
-import { finalize, take } from 'rxjs';
+import { Subject, finalize, take, takeUntil } from 'rxjs';
+
+import {
+  UserService,
+  NotificationService,
+  LoaderService,
+} from '@core/services';
 
 @Component({
   selector: 'app-register',
@@ -11,19 +16,34 @@ import { finalize, take } from 'rxjs';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  private readonly destroyed$: Subject<void> = new Subject();
+
   registerForm!: FormGroup;
-  submitted: boolean = false;
-  loading: boolean = false;
+  submitted = false;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
+    private loaderService: LoaderService,
     private notificationService: NotificationService,
   ) {}
 
   ngOnInit() {
     this.buildForm();
+
+    this.loaderService
+      .isLoading()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((status) => {
+        this.loading = status;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   private buildForm() {
@@ -62,22 +82,12 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-
-    this.userService
-      .register(this.registerForm.value)
-      .pipe(
-        take(1),
-        finalize(() => {
-          this.loading = false;
-        }),
-      )
-      .subscribe({
-        next: (user) => {
-          this.notificationService.displaySuccess('Register Successfully');
-          this.router.navigateByUrl('/login');
-        },
-      });
+    this.userService.register(this.registerForm.value).subscribe({
+      next: (user) => {
+        this.notificationService.displaySuccess('Register Successfully');
+        this.router.navigateByUrl('/login');
+      },
+    });
   }
 
   cloneFormGroup(form: FormGroup) {
