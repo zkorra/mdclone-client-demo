@@ -3,3 +3,4 @@ export * from './jwt.service';
 export * from './user.service';
 export * from './global-error-handler.service';
 export * from './notification.service';
+export * from './loader.service';
