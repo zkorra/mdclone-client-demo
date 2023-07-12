@@ -13,7 +13,11 @@ export class GlobalErrorHandlerService implements ErrorHandler {
       /*
        * server side error
        */
-      const { message } = error;
+      const { errors } = error.error;
+      const type = Object.keys(errors)[0];
+      const description = Object.values(errors)[0];
+
+      const message = `${type} ${description}.`;
       this.notificationService.displayError(message);
     } else {
       /*
