@@ -3,14 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { NoAuthGuard } from '@core/guards';
 
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
+  { path: 'login', component: LoginPageComponent, canActivate: [NoAuthGuard] },
   {
     path: 'register',
-    component: RegisterComponent,
+    component: RegisterPageComponent,
     canActivate: [NoAuthGuard],
   },
 ];
