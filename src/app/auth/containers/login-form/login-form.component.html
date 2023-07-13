@@ -1,0 +1,56 @@
+<form
+  class="flex flex-column gap-3"
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="flex flex-column gap-2">
+    <label>Email Address</label>
+    <input
+      pInputText
+      type="email"
+      class="w-full"
+      formControlName="email"
+      [ngClass]="{
+        'ng-invalid ng-dirty': submitted && emailControl.invalid
+      }"
+    />
+
+    <div *ngIf="submitted && emailControl.invalid">
+      <small *ngIf="emailControl.errors?.['required']" class="ng-invalid">
+        Email is required
+      </small>
+    </div>
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <label>Password</label>
+    <p-password
+      inputStyleClass="w-full"
+      styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
+      [ngClass]="{
+        'ng-invalid ng-dirty': submitted && passwordControl.invalid
+      }"
+      formControlName="password"
+      [toggleMask]="true"
+      [feedback]="false"
+    />
+
+    <div *ngIf="submitted && passwordControl.invalid">
+      <small *ngIf="passwordControl.errors?.['required']" class="ng-invalid">
+        Password is required
+      </small>
+    </div>
+  </div>
+
+  <p-button
+    type="submit"
+    styleClass="w-full justify-content-center"
+    label="Sign In"
+    [loading]="loading"
+  >
+  </p-button>
+
+  <div class="flex flex-row align-items-center">
+    <a [routerLink]="['/login']">Forget your password?</a>
+  </div>
+</form>
