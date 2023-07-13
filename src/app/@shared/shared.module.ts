@@ -13,8 +13,6 @@ import { PrimengModule } from './modules/primeng.module';
     ReactiveFormsModule,
     PrimengModule,
   ],
-  declarations: [],
-  providers: [],
   exports: [
     CommonModule,
     HttpClientModule,
@@ -22,5 +20,7 @@ import { PrimengModule } from './modules/primeng.module';
     ReactiveFormsModule,
     PrimengModule,
   ],
+  declarations: [],
+  providers: [],
 })
 export class SharedModule {}
