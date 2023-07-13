@@ -6,7 +6,7 @@ import { LoaderService, UserService } from '@core/services';
 import { takeUntil, Subject } from 'rxjs';
 
 @Component({
-  selector: 'login-form',
+  selector: 'auth-login-form',
   templateUrl: './login-form.component.html',
 })
 export class LoginFormComponent implements OnInit, OnDestroy {

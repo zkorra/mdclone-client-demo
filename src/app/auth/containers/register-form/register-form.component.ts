@@ -11,7 +11,7 @@ import {
 } from '@core/services';
 
 @Component({
-  selector: 'register-form',
+  selector: 'auth-register-form',
   templateUrl: './register-form.component.html',
 })
 export class RegisterFormComponent implements OnInit {
