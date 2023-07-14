@@ -17,6 +17,7 @@ import {
 export class RegisterFormComponent implements OnInit {
   private readonly destroyed$: Subject<void> = new Subject();
 
+  hide = true;
   registerForm!: FormGroup;
   submitted = false;
   loading = false;

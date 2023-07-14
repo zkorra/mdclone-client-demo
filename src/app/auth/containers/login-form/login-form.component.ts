@@ -12,6 +12,7 @@ import { takeUntil, Subject } from 'rxjs';
 export class LoginFormComponent implements OnInit, OnDestroy {
   private readonly destroyed$: Subject<void> = new Subject();
 
+  hide = true;
   loginForm!: FormGroup;
   submitted = false;
   loading = false;
@@ -63,6 +64,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     if (this.loginForm.invalid) {
       return;
     }
+
+    console.log(this.loginForm.value);
 
     this.userService.login(this.loginForm.value).subscribe({
       next: (data) => {

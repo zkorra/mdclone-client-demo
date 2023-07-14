@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-import { PrimengModule } from './modules/primeng.module';
+import { MaterialModule } from './modules/material.module';
 
 @NgModule({
   imports: [
@@ -11,14 +12,16 @@ import { PrimengModule } from './modules/primeng.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    PrimengModule,
+    RouterModule,
+    MaterialModule,
   ],
   exports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    PrimengModule,
+    RouterModule,
+    MaterialModule,
   ],
   declarations: [],
   providers: [],

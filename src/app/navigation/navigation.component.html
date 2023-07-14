@@ -1,22 +1,16 @@
-<p-menubar class="absolute w-full justify-content-between">
-  <ng-template pTemplate="start">
-    <span>My Application</span>
-  </ng-template>
+<mat-toolbar class="absolute w-full justify-content-between">
+  <span>My Application</span>
+  <span class="example-spacer"></span>
 
-  <div>
-    <div *ngIf="user$ | async as user; else noAuth">
-      <p-button (onClick)="onLogout()">Logout</p-button>
-      <div>{{ user | json }}</div>
-    </div>
-
-    <ng-template #noAuth>
-      <p-button [routerLink]="['/login']" styleClass="p-button-text">
-        Log in
-      </p-button>
-      <p-button [routerLink]="['/register']">Create account</p-button>
-      <div>{{ user$ | async | json }}</div>
-    </ng-template>
+  <div *ngIf="user$ | async as user; else noAuth">
+    <button mat-button (onClick)="onLogout()">Logout</button>
   </div>
 
-  <div>{{ authenticated$ | async | json }}</div>
-</p-menubar>
+  <ng-template #noAuth>
+    <button mat-button routerLink="/login">Log in</button>
+    <button mat-flat-button color="primary" routerLink="/register">
+      Create account
+    </button>
+  </ng-template>
+  <small>{{ user$ | async | json }}</small>
+</mat-toolbar>

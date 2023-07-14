@@ -4,7 +4,40 @@
   (ngSubmit)="onSubmit()"
 >
   <div class="flex flex-column gap-2">
-    <label>Email Address</label>
+    <mat-form-field>
+      <mat-label>Email Address</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <button mat-flat-button color="primary" type="submit">Sign In</button>
+
+  <div class="flex flex-row align-items-center">
+    <a [routerLink]="['/login']">Forget your password?</a>
+  </div>
+</form>
+
+<!-- <label>Email Address</label>
     <input
       pInputText
       type="email"
@@ -19,11 +52,9 @@
       <small *ngIf="emailControl.errors?.['required']" class="ng-invalid">
         Email is required
       </small>
-    </div>
-  </div>
+    </div> -->
 
-  <div class="flex flex-column gap-2">
-    <label>Password</label>
+<!-- <label>Password</label>
     <p-password
       inputStyleClass="w-full"
       styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
@@ -39,18 +70,4 @@
       <small *ngIf="passwordControl.errors?.['required']" class="ng-invalid">
         Password is required
       </small>
-    </div>
-  </div>
-
-  <p-button
-    type="submit"
-    styleClass="w-full justify-content-center"
-    label="Sign In"
-    [loading]="loading"
-  >
-  </p-button>
-
-  <div class="flex flex-row align-items-center">
-    <a [routerLink]="['/login']">Forget your password?</a>
-  </div>
-</form>
+    </div> -->

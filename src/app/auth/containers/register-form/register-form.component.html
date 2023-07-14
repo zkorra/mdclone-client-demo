@@ -4,6 +4,55 @@
   (ngSubmit)="onSubmit()"
 >
   <div class="flex flex-column gap-2">
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field>
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <mat-form-field>
+      <mat-label>Email Adddress</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <button mat-flat-button color="primary" type="submit">Create Account</button>
+
+  <div class="flex flex-column gap-1">
+    <label>Creating an account means you're agree with our</label>
+    <label>
+      <a [routerLink]="['/']">Terms and Conditions</a>
+    </label>
+  </div>
+</form>
+
+<!-- <form
+  class="flex flex-column gap-3"
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="flex flex-column gap-2">
     <label htmlFor="username">Username</label>
     <input
       type="text"
@@ -76,4 +125,4 @@
       <a [routerLink]="['/']">Terms and Conditions</a>
     </label>
   </div>
-</form>
+</form> -->
