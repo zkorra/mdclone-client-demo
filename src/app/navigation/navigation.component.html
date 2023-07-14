@@ -2,8 +2,10 @@
   <span>My Application</span>
   <span class="example-spacer"></span>
 
+  <button mat-button (click)="whoAmI()">whoami</button>
+
   <div *ngIf="user$ | async as user; else noAuth">
-    <button mat-button (onClick)="onLogout()">Logout</button>
+    <button mat-button (click)="onLogout()">Logout</button>
   </div>
 
   <ng-template #noAuth>
@@ -12,5 +14,4 @@
       Create account
     </button>
   </ng-template>
-  <small>{{ user$ | async | json }}</small>
 </mat-toolbar>

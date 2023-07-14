@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@core/services';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -13,6 +14,14 @@ export class NavigationComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit() {}
+
+  whoAmI() {
+    this.user$.pipe(take(1)).subscribe({
+      next: (user) => {
+        console.log(user);
+      },
+    });
+  }
 
   onLogout() {
     this.userService.purgeUser();
