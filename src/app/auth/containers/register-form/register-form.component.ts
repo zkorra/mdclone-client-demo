@@ -82,14 +82,12 @@ export class RegisterFormComponent implements OnInit {
       return;
     }
 
-    console.log(this.registerForm.value);
-
-    // this.userService.register(this.registerForm.value).subscribe({
-    //   next: (user) => {
-    //     this.notificationService.displaySuccess('Register Successfully');
-    //     this.router.navigateByUrl('/login');
-    //   },
-    // });
+    this.userService.register(this.registerForm.value).subscribe({
+      next: (user) => {
+        this.notificationService.displaySuccess('Register Successfully');
+        this.router.navigateByUrl('/login');
+      },
+    });
   }
 
   cloneFormGroup(form: FormGroup) {

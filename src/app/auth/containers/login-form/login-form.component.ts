@@ -46,7 +46,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
         email: ['', Validators.required],
         password: ['123456c', Validators.required],
       },
-      // { updateOn: 'submit' },
+      { updateOn: 'submit' },
     );
   }
 
@@ -62,6 +62,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
+      this.loginForm = this.cloneFormGroup(this.loginForm);
+
       return;
     }
 
@@ -76,5 +78,9 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       //   console.error('myerror', error);
       // },
     });
+  }
+
+  cloneFormGroup(form: FormGroup) {
+    return this.fb.group(form.controls, { updateOn: 'change' });
   }
 }

@@ -7,6 +7,11 @@
     <mat-form-field>
       <mat-label>Email Address</mat-label>
       <input matInput formControlName="email" />
+      <mat-error *ngIf="emailControl.invalid">
+        <span *ngIf="emailControl.errors?.['required']">
+          Email is required
+        </span>
+      </mat-error>
     </mat-form-field>
   </div>
 
@@ -27,6 +32,11 @@
       >
         <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
+      <mat-error *ngIf="submitted && passwordControl.invalid">
+        <span *ngIf="passwordControl.errors?.['required']">
+          Password is required
+        </span>
+      </mat-error>
     </mat-form-field>
   </div>
 
