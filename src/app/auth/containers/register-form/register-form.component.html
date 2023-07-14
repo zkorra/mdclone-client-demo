@@ -21,7 +21,7 @@
       <input matInput formControlName="email" />
       <mat-error *ngIf="submitted && emailControl.invalid">
         <span *ngIf="emailControl.errors?.['required']">
-          Username is required
+          Email is required
         </span>
         <span *ngIf="emailControl.errors?.['email']">
           Enter a valid email
