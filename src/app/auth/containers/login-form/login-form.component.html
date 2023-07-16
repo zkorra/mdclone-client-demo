@@ -4,9 +4,9 @@
   (ngSubmit)="onSubmit()"
 >
   <div class="flex flex-column gap-2">
+    <label>Email</label>
     <mat-form-field>
-      <mat-label>Email Address</mat-label>
-      <input matInput formControlName="email" />
+      <input matInput formControlName="email" placeholder="Enter your email" />
       <mat-error *ngIf="emailControl.invalid">
         <span *ngIf="emailControl.errors?.['required']">
           Email is required
@@ -16,12 +16,14 @@
   </div>
 
   <div class="flex flex-column gap-2">
+    <label>Password</label>
     <mat-form-field>
-      <mat-label>Enter your password</mat-label>
+      <!-- <mat-label>Enter your password</mat-label> -->
       <input
         matInput
         formControlName="password"
         [type]="hide ? 'password' : 'text'"
+        placeholder="Enter your password"
       />
       <button
         mat-icon-button
