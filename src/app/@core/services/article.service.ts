@@ -15,8 +15,8 @@ export class ArticleService {
 
   constructor(private apiService: ApiService) {}
 
-  publish(publishInfo: ArticlePublishInfo): Observable<Article> {
-    const articlePublishDto: ArticlePublishDto = { article: publishInfo };
+  publish(article: ArticlePublishInfo): Observable<Article> {
+    const articlePublishDto: ArticlePublishDto = { article: article };
 
     return this.apiService.post('/articles', articlePublishDto).pipe(
       take(1),
