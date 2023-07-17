@@ -1,0 +1,25 @@
+<form
+  class="flex flex-column gap-3"
+  [formGroup]="articleForm"
+  (ngSubmit)="onPublish()"
+>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Body</mat-label>
+    <textarea matInput formControlName="body"></textarea>
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+    <mat-label>Tag</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field> -->
+
+  <button mat-flat-button color="primary" type="submit">Publish</button>
+</form>
