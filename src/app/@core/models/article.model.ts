@@ -21,3 +21,16 @@ export interface Author {
 export interface ArticleResponse {
   article: Article;
 }
+
+export interface ArticlePublishInfo {
+  article: {
+    title: string;
+    description: string;
+    body: string;
+    tagList: string[];
+  };
+}
+
+export interface ArticlePublishDto {
+  article: ArticlePublishInfo;
+}
