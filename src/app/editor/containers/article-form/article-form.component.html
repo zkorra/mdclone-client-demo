@@ -3,17 +3,18 @@
   [formGroup]="articleForm"
   (ngSubmit)="onPublish()"
 >
-  <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input matInput formControlName="title" />
+  <mat-form-field appearance="fill">
+    <input matInput formControlName="title" placeholder="Title" />
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea matInput formControlName="description"></textarea>
+  <mat-form-field appearance="fill">
+    <textarea
+      matInput
+      formControlName="description"
+      placeholder="Description"
+    ></textarea>
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>Body</mat-label>
-    <textarea matInput formControlName="body"></textarea>
+  <mat-form-field appearance="fill">
+    <textarea matInput formControlName="body" placeholder="Body"></textarea>
   </mat-form-field>
 
   <!-- <mat-form-field>
