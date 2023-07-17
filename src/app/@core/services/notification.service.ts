@@ -16,7 +16,7 @@ export class NotificationService {
      * allows messageService to run a function inside the Angular zone
      */
     this.zone.run(() => {
-      this.snackBar.open(message, undefined, this.config);
+      this.snackBar.open(message, 'X', this.config);
     });
   }
 
