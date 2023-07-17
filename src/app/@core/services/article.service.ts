@@ -18,7 +18,7 @@ export class ArticleService {
   publish(publishInfo: ArticlePublishInfo): Observable<Article> {
     const articlePublishDto: ArticlePublishDto = { article: publishInfo };
 
-    return this.apiService.post('/articles', publishInfo).pipe(
+    return this.apiService.post('/articles', articlePublishDto).pipe(
       take(1),
       map((data: ArticleResponse) => {
         const { article } = data;
