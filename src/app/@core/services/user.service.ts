@@ -6,6 +6,8 @@ import {
   UserRegistrationInfo,
   User,
   UserInfoResponse,
+  UserLoginDto,
+  UserRegistrationDto,
 } from '@core/models';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
@@ -55,15 +57,15 @@ export class UserService {
   }
 
   register(registrationInfo: UserRegistrationInfo): Observable<User> {
-    const registrationInfoDto = { user: registrationInfo };
+    const userRegistrationDto: UserRegistrationDto = { user: registrationInfo };
 
-    return this.apiService.post('/users', registrationInfoDto).pipe(take(1));
+    return this.apiService.post('/users', userRegistrationDto).pipe(take(1));
   }
 
   login(userInfo: UserLoginInfo): Observable<User> {
-    const userInfoDto = { user: userInfo };
+    const userLoginDto: UserLoginDto = { user: userInfo };
 
-    return this.apiService.post('/users/login', userInfoDto).pipe(
+    return this.apiService.post('/users/login', userLoginDto).pipe(
       take(1),
       map((data: UserInfoResponse) => {
         const { user } = data;

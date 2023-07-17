@@ -12,9 +12,17 @@ export interface UserRegistrationInfo {
   password: string;
 }
 
+export interface UserRegistrationDto {
+  user: UserRegistrationInfo;
+}
+
 export interface UserLoginInfo {
   email: string;
   password: string;
+}
+
+export interface UserLoginDto {
+  user: UserLoginInfo;
 }
 
 export interface UserInfoResponse {
