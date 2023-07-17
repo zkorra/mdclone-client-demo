@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Article } from '@core/models';
-import { ArticleService } from '@core/services/article.service';
+import { ArticleService } from '@core/services';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
