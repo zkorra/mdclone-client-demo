@@ -20,7 +20,7 @@ export class ArticleFormComponent implements OnInit {
         title: ['', Validators.required],
         description: [''],
         body: ['', Validators.required],
-        // tagList: ['']
+        tagList: this.fb.array([]),
       },
       { updateOn: 'submit' },
     );
