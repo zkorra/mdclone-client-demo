@@ -6,7 +6,7 @@
   <div class="flex flex-column gap-2">
     <label>Email</label>
     <mat-form-field>
-      <input matInput formControlName="email" placeholder="Enter your email" />
+      <input matInput formControlName="email" placeholder="Enter your email address" />
       <mat-error *ngIf="emailControl.invalid">
         <span *ngIf="emailControl.errors?.['required']">
           Email is required
@@ -23,7 +23,6 @@
         matInput
         formControlName="password"
         [type]="hide ? 'password' : 'text'"
-        placeholder="Enter your password"
       />
       <button
         mat-icon-button
@@ -48,38 +47,3 @@
     <a [routerLink]="['/login']">Forget your password?</a>
   </div>
 </form>
-
-<!-- <label>Email Address</label>
-    <input
-      pInputText
-      type="email"
-      class="w-full"
-      formControlName="email"
-      [ngClass]="{
-        'ng-invalid ng-dirty': submitted && emailControl.invalid
-      }"
-    />
-
-    <div *ngIf="submitted && emailControl.invalid">
-      <small *ngIf="emailControl.errors?.['required']" class="ng-invalid">
-        Email is required
-      </small>
-    </div> -->
-
-<!-- <label>Password</label>
-    <p-password
-      inputStyleClass="w-full"
-      styleClass="w-full p-password p-component p-inputwrapper p-input-icon-right"
-      [ngClass]="{
-        'ng-invalid ng-dirty': submitted && passwordControl.invalid
-      }"
-      formControlName="password"
-      [toggleMask]="true"
-      [feedback]="false"
-    />
-
-    <div *ngIf="submitted && passwordControl.invalid">
-      <small *ngIf="passwordControl.errors?.['required']" class="ng-invalid">
-        Password is required
-      </small>
-    </div> -->
