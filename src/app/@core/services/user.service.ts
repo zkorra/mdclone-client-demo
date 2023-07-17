@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, Observable, map, take } from 'rxjs';
 
 import {
-  LoginUserInfo,
-  RegistrationUserInfo,
+  UserLoginInfo,
+  UserRegistrationInfo,
   User,
   UserInfoResponse,
 } from '@core/models';
@@ -54,13 +54,13 @@ export class UserService {
     }
   }
 
-  register(registrationInfo: RegistrationUserInfo): Observable<User> {
+  register(registrationInfo: UserRegistrationInfo): Observable<User> {
     const registrationInfoDto = { user: registrationInfo };
 
     return this.apiService.post('/users', registrationInfoDto).pipe(take(1));
   }
 
-  login(userInfo: LoginUserInfo): Observable<User> {
+  login(userInfo: UserLoginInfo): Observable<User> {
     const userInfoDto = { user: userInfo };
 
     return this.apiService.post('/users/login', userInfoDto).pipe(

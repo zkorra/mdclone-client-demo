@@ -6,12 +6,15 @@ export interface User {
   image: string;
 }
 
-export interface RegistrationUserInfo {
-  user: { username: string; email: string; password: string };
+export interface UserRegistrationInfo {
+  username: string;
+  email: string;
+  password: string;
 }
 
-export interface LoginUserInfo {
-  user: { email: string; password: string };
+export interface UserLoginInfo {
+  email: string;
+  password: string;
 }
 
 export interface UserInfoResponse {
