@@ -34,3 +34,8 @@ export interface ArticlePublishInfo {
 export interface ArticlePublishDto {
   article: ArticlePublishInfo;
 }
+
+export interface ArticlesResponse {
+  articles: Article[];
+  articlesCount: number;
+}
