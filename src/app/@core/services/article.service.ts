@@ -6,6 +6,7 @@ import {
   ArticlePublishDto,
   ArticlePublishInfo,
   ArticleResponse,
+  ArticlesResponse,
 } from '@core/models';
 import { ApiService } from './api.service';
 
@@ -15,15 +16,26 @@ export class ArticleService {
 
   constructor(private apiService: ApiService) {}
 
+  getAll(): Observable<Article[]> {
+    return this.apiService.get('/articles').pipe(
+      take(1),
+      map((data: ArticlesResponse) => data.articles),
+    );
+  }
+
+  get(slug: string): Observable<Article> {
+    return this.apiService.get(`/articles/${slug}`).pipe(
+      take(1),
+      map((data: ArticleResponse) => data.article),
+    );
+  }
+
   publish(article: ArticlePublishInfo): Observable<Article> {
     const articlePublishDto: ArticlePublishDto = { article: article };
 
     return this.apiService.post('/articles', articlePublishDto).pipe(
       take(1),
-      map((data: ArticleResponse) => {
-        const { article } = data;
-        return article;
-      }),
+      map((data: ArticleResponse) => data.article),
     );
   }
 }
