@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Article } from '@core/models';
+import { ArticleService } from '@core/services';
 
 @Component({
   selector: 'editor-article-form',
@@ -7,11 +10,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ArticleFormComponent implements OnInit {
   articleForm!: FormGroup;
+  article!: Article;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private articleService: ArticleService,
+  ) {}
 
   ngOnInit() {
     this.buildForm();
+    this.getArticleFromResolver();
   }
 
   private buildForm() {
@@ -26,7 +35,23 @@ export class ArticleFormComponent implements OnInit {
     );
   }
 
+  private getArticleFromResolver() {
+    this.route.data.subscribe((data) => {
+      this.article = data['article'];
+      this.articleForm.patchValue(data['article']);
+    });
+  }
+
   onPublish() {
+    if (this.articleForm.invalid) {
+      return;
+    }
     console.log(this.articleForm.value);
+
+    this.articleService.publish(this.articleForm.value).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+    });
   }
 }
