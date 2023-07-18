@@ -3,21 +3,36 @@ import {
   Resolve,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
+  Router,
 } from '@angular/router';
 import { Article } from '@core/models';
-import { ArticleService } from '@core/services';
-import { Observable } from 'rxjs';
+import { ArticleService, UserService } from '@core/services';
+import { Observable, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class EditableResolver implements Resolve<Observable<Article>> {
-  constructor(private articleService: ArticleService) {}
+  constructor(
+    private router: Router,
+    private articleService: ArticleService,
+    private userService: UserService,
+  ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<Article> {
-    const articleId = route.params['slug'];
+    const articleSlug = route.params['slug'];
+    return this.articleService.get(articleSlug).pipe(
+      map((article) => {
+        const author = article.author?.username;
+        const user = this.userService.getUserValue()?.username;
 
-    throw new Error('Method not implemented.');
+        if (author !== user) {
+          this.router.navigateByUrl('/');
+        }
+
+        return article;
+      }),
+    );
   }
 }
