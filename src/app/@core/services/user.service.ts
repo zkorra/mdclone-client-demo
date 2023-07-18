@@ -23,6 +23,10 @@ export class UserService {
     return this.user$;
   }
 
+  getUserValue(): User | null {
+    return this.user$.value;
+  }
+
   isAuthenticated(): Observable<boolean> {
     return this.authenticated$;
   }
