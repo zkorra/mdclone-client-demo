@@ -1,28 +1,23 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, Optional, Self } from '@angular/core';
 import {
-  ControlValueAccessor,
-  FormControl,
   FormControlDirective,
   FormControlName,
-  FormGroup,
   NgControl,
   NgModel,
 } from '@angular/forms';
-
-import { NoopValueAccessorDirective } from '@shared/directives/noop-value-accessor.directive';
+import { ControlValueAccessorDirective } from '@shared/directives/control-value-accessor.directive';
 
 @Component({
   selector: 'auth-password-field',
   templateUrl: './password-field.component.html',
-  hostDirectives: [NoopValueAccessorDirective],
+  hostDirectives: [ControlValueAccessorDirective],
 })
 export class PasswordFieldComponent implements OnInit {
-  // ngControl = injectNgControl();
-  test!: FormControlDirective | FormControlName | NgModel;
+  control!: FormControlDirective | FormControlName | NgModel;
 
   hide = true;
 
-  constructor(private ngControl: NgControl) {}
+  constructor(@Self() @Optional() private ngControl: NgControl) {}
 
   ngOnInit() {
     if (!this.ngControl) throw new Error('...');
@@ -32,10 +27,7 @@ export class PasswordFieldComponent implements OnInit {
       this.ngControl instanceof FormControlName ||
       this.ngControl instanceof NgModel
     ) {
-      this.test = this.ngControl;
+      this.control = this.ngControl;
     }
-
-    throw new Error('...');
-    // throw new Error('Method not implemented.');
   }
 }
