@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from '@core/models';
 import { ArticleService } from '@core/services';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'editor-article-form',
@@ -36,7 +37,7 @@ export class ArticleFormComponent implements OnInit {
   }
 
   private getArticleFromResolver() {
-    this.route.data.subscribe((data) => {
+    this.route.data.pipe(take(1)).subscribe((data) => {
       this.article = data['article'];
       this.articleForm.patchValue(data['article']);
     });
