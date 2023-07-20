@@ -60,7 +60,9 @@
     <auth-password-field formControlName="password"></auth-password-field>
   </div> -->
 
-  <button mat-flat-button color="primary" type="submit">Create Account</button>
+  <button mat-flat-button color="primary" type="submit" [disabled]="loading">
+    Create Account
+  </button>
 
   <div class="flex flex-column gap-1">
     <label>Creating an account means you're agree with our</label>
