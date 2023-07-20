@@ -1,0 +1,5 @@
+<div *ngIf="routeData$ | async as data">
+  <h2>{{ data['article'].title }}</h2>
+  <small>{{ data['article'].description }}</small>
+  <p>{{ data['article'].body }}</p>
+</div>

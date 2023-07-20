@@ -1,14 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '@core/services';
+import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs';
+
+import { Article } from '@core/models';
 
 @Component({
   selector: 'article-view',
   templateUrl: './article-view.component.html',
 })
 export class ArticleViewComponent implements OnInit {
-  constructor(private articleService: ArticleService) {}
+  article!: Article;
+  routeData$ = this.activatedRoute.data;
+
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    throw new Error('Method not implemented.');
+    // throw new Errsor('Method not implemented.');
+    // this.getArticleFromResolver();
+  }
+
+  private getArticleFromResolver() {
+    this.activatedRoute.data.pipe(take(1)).subscribe((data) => {
+      this.article = data['article'];
+    });
   }
 }
