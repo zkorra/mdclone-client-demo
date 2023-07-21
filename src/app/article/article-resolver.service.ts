@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { Article } from '@core/models';
+import type { Article } from '@core/models';
 import { ArticleService } from '@core/services';
 import { Observable, catchError } from 'rxjs';
 

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, take, map } from 'rxjs';
 
-import {
+import type {
   Article,
   ArticlePublishDto,
   ArticlePublishInfo,
   ArticleResponse,
   ArticlesResponse,
 } from '@core/models';
+
 import { ApiService } from './api.service';
 
 @Injectable({ providedIn: 'root' })

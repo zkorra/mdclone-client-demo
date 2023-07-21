@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, Observable, map, take } from 'rxjs';
 
-import {
+import type {
   UserLoginInfo,
   UserRegistrationInfo,
   User,

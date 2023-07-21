@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
 
-import { Article } from '@core/models';
+import type { Article } from '@core/models';
 
 @Component({
   selector: 'article-detail-view',
