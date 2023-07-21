@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import type { Article } from '@core/models';
 import { ArticleService } from '@core/services';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ArticleResolver implements Resolve<Observable<Article>> {
@@ -18,8 +18,15 @@ export class ArticleResolver implements Resolve<Observable<Article>> {
     state: RouterStateSnapshot,
   ): Observable<any> {
     const articleSlug = route.params['slug'];
-    return this.articleService
-      .get(articleSlug)
-      .pipe(catchError((error) => this.router.navigateByUrl('/')));
+    return this.articleService.get(articleSlug).pipe(
+      map((article) => {
+        if (!article.hasOwnProperty('slug')) {
+          this.router.navigateByUrl('/404');
+        }
+
+        return article;
+      }),
+      catchError((error) => this.router.navigateByUrl('/')),
+    );
   }
 }
