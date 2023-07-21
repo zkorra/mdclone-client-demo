@@ -5,10 +5,10 @@ import { take } from 'rxjs';
 import { Article } from '@core/models';
 
 @Component({
-  selector: 'article-view',
-  templateUrl: './article-view.component.html',
+  selector: 'article-detail-view',
+  templateUrl: './detail-view.component.html',
 })
-export class ArticleViewComponent implements OnInit {
+export class DetailViewComponent implements OnInit {
   article!: Article;
   routeData$ = this.activatedRoute.data;
 
