@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
+import { HomePageComponent } from './home/pages/home-page/home-page.component';
 import { NotFoundPageComponent } from '@shared/components/notfound-page/notfound-page.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomePageComponent },
   {
     path: 'article',
     loadChildren: () =>
