@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { NotFoundPageComponent } from '@shared/components/notfound-page/notfound-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./editor/editor.module').then((m) => m.EditorModule),
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '404', component: NotFoundPageComponent },
+  { path: '**', pathMatch: 'full', component: NotFoundPageComponent },
 ];
 
 @NgModule({
