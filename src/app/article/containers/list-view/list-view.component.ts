@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import type { Article } from '@core/models';
 import { ArticleService } from '@core/services';
 
 @Component({
