@@ -24,11 +24,15 @@ export class EditableResolver implements Resolve<Observable<Article>> {
     const articleSlug = route.params['slug'];
     return this.articleService.get(articleSlug).pipe(
       map((article) => {
+        if (!article.hasOwnProperty('slug')) {
+          this.router.navigateByUrl('/404');
+        }
+
         const author = article.author?.username;
         const user = this.userService.getUserValue()?.username;
 
         if (author !== user) {
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/404');
         }
 
         return article;
