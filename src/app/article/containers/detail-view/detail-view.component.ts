@@ -10,13 +10,11 @@ import type { Article } from '@core/models';
 })
 export class DetailViewComponent implements OnInit {
   article!: Article;
-  routeData$ = this.activatedRoute.data;
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    // throw new Errsor('Method not implemented.');
-    // this.getArticleFromResolver();
+    this.getArticleFromResolver();
   }
 
   private getArticleFromResolver() {
