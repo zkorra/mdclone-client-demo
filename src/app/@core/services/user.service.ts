@@ -80,9 +80,8 @@ export class UserService {
     return this.apiService.post('/users/login', userLoginDto).pipe(
       take(1),
       map((data: UserInfoResponse) => {
-        const { user } = data;
-        this.setUser(user);
-        return user;
+        this.setUser(data.user);
+        return data.user;
       }),
     );
   }
