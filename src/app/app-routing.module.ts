@@ -16,6 +16,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./editor/editor.module').then((m) => m.EditorModule),
   },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfileModule),
+  },
   { path: '404', component: NotFoundPageComponent },
   { path: '**', pathMatch: 'full', component: NotFoundPageComponent },
 ];
