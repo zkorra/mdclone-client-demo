@@ -3,13 +3,12 @@
 
   <span class="example-spacer"></span>
 
-  <button mat-button (click)="whoAmI()">whoami</button>
-  <span class="example-spacer"></span>
-
   <div
     *ngIf="user$ | async as user; else noAuth"
-    class="flex align-items-center"
+    class="flex align-items-center gap-2"
   >
+    <button mat-button (click)="whoAmI()">whoami</button>
+
     <button mat-button (click)="goToPublish()">Publish</button>
 
     <button mat-icon-button [matMenuTriggerFor]="menu" class="avatar">
@@ -22,9 +21,12 @@
   </div>
 
   <ng-template #noAuth>
-    <button mat-button (click)="goToLogin()">Log in</button>
-    <button mat-flat-button color="primary" (click)="goToRegister()">
-      Create account
-    </button>
+    <div class="flex gap-2">
+      <button mat-button (click)="whoAmI()">whoami</button>
+      <button mat-button (click)="goToLogin()">Log in</button>
+      <button mat-flat-button color="primary" (click)="goToRegister()">
+        Create account
+      </button>
+    </div>
   </ng-template>
 </mat-toolbar>
