@@ -1,5 +1,5 @@
 <mat-toolbar class="absolute w-full h-4rem justify-content-between">
-  <button mat-button (click)="goToHome()">My Application</button>
+  <button mat-button routerLink="/">My Application</button>
 
   <span class="example-spacer"></span>
 
@@ -9,13 +9,15 @@
   >
     <button mat-button (click)="whoAmI()">whoami</button>
 
-    <button mat-button (click)="goToPublish()">Publish</button>
+    <button mat-button routerLink="/publish">Publish</button>
 
     <button mat-icon-button [matMenuTriggerFor]="menu" class="avatar">
       <img [src]="user.image" />
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Profile</button>
+      <button mat-menu-item routerLink="{{ '/profile/' + user.username }}">
+        Profile
+      </button>
       <button mat-menu-item (click)="onLogout()">Logout</button>
     </mat-menu>
   </div>
@@ -23,8 +25,8 @@
   <ng-template #noAuth>
     <div class="flex gap-2">
       <button mat-button (click)="whoAmI()">whoami</button>
-      <button mat-button (click)="goToLogin()">Log in</button>
-      <button mat-flat-button color="primary" (click)="goToRegister()">
+      <button mat-button routerLink="/login">Log in</button>
+      <button mat-flat-button color="primary" routerLink="/register">
         Create account
       </button>
     </div>
