@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { BehaviorSubject, ReplaySubject, Observable, map, take } from 'rxjs';
 
 import type {
@@ -17,7 +19,11 @@ export class UserService {
   private user$ = new BehaviorSubject<User | null>(null);
   private authenticated$ = new ReplaySubject<boolean>(1);
 
-  constructor(private apiService: ApiService, private jwtToken: JwtService) {}
+  constructor(
+    private router: Router,
+    private apiService: ApiService,
+    private jwtToken: JwtService,
+  ) {}
 
   getUser(): Observable<User | null> {
     return this.user$;
@@ -44,6 +50,8 @@ export class UserService {
     this.user$.next(null);
 
     this.authenticated$.next(false);
+
+    this.router.navigateByUrl('/');
   }
 
   populate() {
