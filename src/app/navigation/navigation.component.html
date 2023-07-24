@@ -1,16 +1,29 @@
 <mat-toolbar class="absolute w-full h-4rem justify-content-between">
-  <span>My Application</span>
+  <button mat-button (click)="goToHome()">My Application</button>
+
   <span class="example-spacer"></span>
 
   <button mat-button (click)="whoAmI()">whoami</button>
+  <span class="example-spacer"></span>
 
-  <div *ngIf="user$ | async as user; else noAuth">
-    <button mat-button (click)="onLogout()">Logout</button>
+  <div
+    *ngIf="user$ | async as user; else noAuth"
+    class="flex align-items-center"
+  >
+    <button mat-button (click)="goToPublish()">Publish</button>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="avatar">
+      <img [src]="user.image" />
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item (click)="onLogout()">Logout</button>
+    </mat-menu>
   </div>
 
   <ng-template #noAuth>
-    <button mat-button routerLink="/login">Log in</button>
-    <button mat-flat-button color="primary" routerLink="/register">
+    <button mat-button (click)="goToLogin()">Log in</button>
+    <button mat-flat-button color="primary" (click)="goToRegister()">
       Create account
     </button>
   </ng-template>
