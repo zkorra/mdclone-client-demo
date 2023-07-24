@@ -5,8 +5,8 @@ import { ArticleRoutingModule } from './article-routing.module';
 
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 
-import { DetailViewComponent } from './containers/detail-view/detail-view.component';
-import { ListViewComponent } from './containers/list-view/list-view.component';
+import { ArticleDetailComponent } from './containers/article-detail/article-detail.component';
+import { ArticleListComponent } from './containers/article-list/article-list.component';
 
 import { ArticleFeedPage } from './pages/article-feed-page/article-feed-page.component';
 import { ArticlePageComponent } from './pages/article-page/article-page.component';
@@ -16,8 +16,8 @@ import { ArticlePageComponent } from './pages/article-page/article-page.componen
   declarations: [
     ArticleCardComponent,
 
-    DetailViewComponent,
-    ListViewComponent,
+    ArticleDetailComponent,
+    ArticleListComponent,
 
     ArticleFeedPage,
     ArticlePageComponent,
